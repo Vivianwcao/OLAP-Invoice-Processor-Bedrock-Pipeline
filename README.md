@@ -14,8 +14,7 @@
 
 In March and April 2026, my manager noticed a sharp increase in our AWS bill. Our monthly Textract charges surged from $120 to over $500, with single days topping $80. He asked me to investigate the cause and bring the costs down.
 
-<img width="800" alt="aws_textract" src="https://github.com/user-attachments/assets/5b677e9a-1e74-4d56-b7f3-49c993593431" />
-
+<img width="800" alt="aws_textract" src="https://github.com/user-attachments/assets/8c4e9f42-e7d9-43be-8ed1-3901970088c8" />
 
 I analyzed our usage and traced the expenses to two invoice pipelines handling AES and CES suppliers. Three main problems caused the cost jump:
 
@@ -27,7 +26,7 @@ I analyzed our usage and traced the expenses to two invoice pipelines handling A
 
 *3 Make Scenarios for AES (example)*
 
-<img width="800" alt="AES_make" src="https://github.com/user-attachments/assets/80a4fb6e-a17d-4518-9acb-e0ca98b3a63a" />
+<img width="800" alt="AES_make" src="https://github.com/user-attachments/assets/f8f31e51-1e16-47f4-8e3e-610589d10e0e" />
 
 ---
 
@@ -48,7 +47,7 @@ To resolve this, I redesigned the document processing system natively inside AWS
 
 *Finished AWS State machine (Step Functions)*
 
-<img width="342" height="702" alt="AESstepfunctions_graph" src="https://github.com/user-attachments/assets/4bd2d306-c8aa-45ce-8869-a7caf5dd7a61" />
+<img width="342" height="702" alt="AESstepfunctions_graph" src="https://github.com/user-attachments/assets/21f0c3bc-c653-4674-b05f-d892a5d634d9" />
 
 ---
 
@@ -56,7 +55,7 @@ To resolve this, I redesigned the document processing system natively inside AWS
 
 To keep data consistent as transactions move through the pipeline, every Lambda reads from, enriches, and writes back to a single central JSON state file stored in Amazon S3.
 
-<img width="2720" height="2432" alt="aes_ces_pipeline_detailed" src="https://github.com/user-attachments/assets/ec2d061a-b37c-4d08-ae09-349019b2046f" />
+<img width="2720" height="2432" alt="aes_ces_pipeline_detailed" src="https://github.com/user-attachments/assets/8f240544-ec67-4ffb-880c-f3f6f0cd09b1" />
 
 
 ### Data Processing Steps
