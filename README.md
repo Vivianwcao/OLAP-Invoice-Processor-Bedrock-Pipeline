@@ -46,8 +46,7 @@ To resolve this, I redesigned the document processing system natively inside AWS
 * **Zero Console Drift:** Defined 100% of the infrastructure in SAM YAML templates built with Docker, making the stack fully reproducible.
 
 *Finished AWS State machine (Step Functions)*
-
-<img width="342" height="702" alt="AESstepfunctions_graph" src="https://github.com/user-attachments/assets/21f0c3bc-c653-4674-b05f-d892a5d634d9" />
+<img width="1602" height="677" alt="AESstepfunctions_graph" src="https://github.com/user-attachments/assets/7b1aaef5-5b3a-46f1-a376-5e270a3013c7" />
 
 ---
 
@@ -56,7 +55,6 @@ To resolve this, I redesigned the document processing system natively inside AWS
 To keep data consistent as transactions move through the pipeline, every Lambda reads from, enriches, and writes back to a single central JSON state file stored in Amazon S3.
 
 <img width="2720" height="2432" alt="aes_ces_pipeline_detailed" src="https://github.com/user-attachments/assets/8f240544-ec67-4ffb-880c-f3f6f0cd09b1" />
-
 
 ### Data Processing Steps
 
