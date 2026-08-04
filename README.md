@@ -10,7 +10,8 @@
 
 ---
 
-## The Alarm: The $500 AWS Bill Spike
+## Background & Business Problem
+### The $500 AWS Bill Spike
 
 In March and April 2026, my manager noticed a sharp increase in our AWS bill. Our monthly Textract charges went from about $120 to over $500, with some days reaching more than $80. He asked me to find out what was causing the increase and see if I could reduce the costs.
 
@@ -26,7 +27,7 @@ I analyzed our usage and found that most of the cost came from two invoice pipel
 
 *3 Make Scenarios for AES (example)*
 
-<img width="800" alt="AES_make" src="https://github.com/user-attachments/assets/f8f31e51-1e16-47f4-8e3e-610589d10e0e" />
+<img width="600" alt="AES_make" src="https://github.com/user-attachments/assets/f8f31e51-1e16-47f4-8e3e-610589d10e0e" />
 
 ---
 
