@@ -32,6 +32,7 @@ I analyzed our usage and found that most of the cost came from two invoice pipel
 <div align="center">
   <img width="60%" alt="AES_make" src="https://github.com/user-attachments/assets/f8f31e51-1e16-47f4-8e3e-610589d10e0e" />
 </div>
+
 ---
 
 ## Business Solution & Results
