@@ -15,7 +15,9 @@
 
 In March and April 2026, my manager noticed a sharp increase in our AWS bill. Our monthly Textract charges went from about $120 to over $500, with some days reaching more than $80. He asked me to find out what was causing the increase and see if I could reduce the costs.
 
-<img width="800" alt="aws_textract" src="https://github.com/user-attachments/assets/8c4e9f42-e7d9-43be-8ed1-3901970088c8" />
+<div align="center">
+  <img width="80%" alt="aws_textract" src="https://github.com/user-attachments/assets/8c4e9f42-e7d9-43be-8ed1-3901970088c8" />
+</div>
 
 I analyzed our usage and found that most of the cost came from two invoice pipelines for AES and CES suppliers. After digging into the workflows, I identified three main issues that were driving up the costs:
 
@@ -27,8 +29,9 @@ I analyzed our usage and found that most of the cost came from two invoice pipel
 
 *3 Make Scenarios for AES (example)*
 
-<img width="600" alt="AES_make" src="https://github.com/user-attachments/assets/f8f31e51-1e16-47f4-8e3e-610589d10e0e" />
-
+<div align="center">
+  <img width="60%" alt="AES_make" src="https://github.com/user-attachments/assets/f8f31e51-1e16-47f4-8e3e-610589d10e0e" />
+</div>
 ---
 
 ## Business Solution & Results
