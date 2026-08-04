@@ -30,7 +30,7 @@ I analyzed our usage and found that most of the cost came from two invoice pipel
 
 ---
 
-## Solution & Results
+## Business Solution & Results
 
 To fix these issues, I redesigned the document processing system entirely in AWS. I replaced the nine Make scenarios with a single AWS Step Functions state machine, replaced unnecessary Textract with targeted PDF parsing with `PDFPlumber` and Bedrock, and defined the entire stack using AWS SAM templates built with Docker.
 
@@ -50,7 +50,7 @@ To fix these issues, I redesigned the document processing system entirely in AWS
 
 ---
 
-## Architecture & Data Flow
+## Technical Architecture & Data Flow
 
 To keep data consistent as transactions move through the pipeline, every Lambda reads from, enriches, and writes back to a single central JSON state file stored in Amazon S3.
 
