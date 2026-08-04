@@ -32,18 +32,18 @@ I analyzed our usage and found that most of the cost came from two invoice pipel
 
 ## Solution & Results
 
-To resolve this, I redesigned the document processing system natively inside AWS. I consolidated all 9 Make scenarios into an AWS Step Functions state machine, swapped Textract for targeted PDF parsing with Bedrock, and defined the entire stack using AWS SAM templates built in Docker.
+To fix these issues, I redesigned the document processing system entirely in AWS. I replaced the nine Make scenarios with a single AWS Step Functions state machine, replaced unnecessary Textract with targeted PDF parsing with `PDFPlumber` and Bedrock, and defined the entire stack using AWS SAM templates built with Docker.
 
 ### Key Results
-* **97% Cost Reduction:** Monthly AWS charges dropped from over $500 down to between $3 and $5 per month, completely eliminating Textract fees.
+* **97% Cost Reduction:** Reduced monthly AWS costs from over $500 to between $3 and $5 by eliminating Textract charges.
 
-* **From 5 Minutes to 3 Seconds:** Processing time per invoice dropped from over 5 minutes down to roughly 3 seconds by eliminating cross-platform Make webhooks and keeping all processing native to AWS.
+* **Processing Time Reduced from 5 Minutes to 3 Seconds:** Reduced the processing time for each invoice from over 5 minutes to about 3 seconds by replacing cross platform Make webhooks with an AWS Step Functions workflow.
 
-* **Instant Alerts & Effortless Debugging:** Added EventBridge and SNS monitoring rules that send instant email alerts on any pipeline failure. Instead of manually checking between Make scenarios, developers can open the Step Functions execution, see exactly where it failed, review the CloudWatch logs, and locate the issue in just a few minutes.
+* **Instant Alerts & Effortless Debugging:** Added EventBridge and SNS monitoring to send email alerts whenever a pipeline fails. Developers can open the Step Functions execution, see exactly where the failure occurred, review the CloudWatch logs, and identify the issue within minutes.
 
-* **Zero Lost Files:** Replaced silent drops with automated retries and explicit failure handling, ensuring every client document is processed reliably without lost transactions.
+* **No Lost Files:** Replaced silent failures with automatic retries and explicit error handling so every client document is either processed successfully or fails with a clear reason.
 
-* **Zero Console Drift:** Defined 100% of the infrastructure in SAM YAML templates built with Docker, making the stack fully reproducible.
+* **Fully Reproducible Infrastructure:** Defined the entire AWS infrastructure in AWS SAM templates built with Docker, making deployments consistent and repeatable.
 
 *Finished AWS State machine (Step Functions)*
 <img width="1602" height="677" alt="AESstepfunctions_graph" src="https://github.com/user-attachments/assets/7b1aaef5-5b3a-46f1-a376-5e270a3013c7" />
@@ -74,18 +74,18 @@ To keep data consistent as transactions move through the pipeline, every Lambda 
 ## Engineering Challenges & Solutions
 
 ### 1. Extracting data from 100+ page PDFs without blowing the budget
-* **The Challenge:** AES PDFs frequently arrived with over 100 pages, but the required invoice tables were located on only 2 or 3 specific pages. Sending entire files to external tools cost roughly $10 per run.
+* **The Challenge:** AES PDFs often contained over 100 pages, but the invoice tables were usually located on only 2 or 3 pages. The old pipeline sent the entire PDF for processing, costing about $10 per invoice just to extract a few fields.
 
-* **The Solution:** Wrote a custom PDF Slicer that scans headers to locate target tables, slices out only those 2 or 3 relevant pages, and discards the rest. Slicing the file first cut payload sizes and processing time by over 80% before any extraction started.
+* **The Solution:** Built a custom PDF slicer that scans page headers to find the invoice tables, keeps only the 2 or 3 relevant pages, and ignores the rest. This reduced the file size by over 80% before extraction even started, which significantly lowered both processing time and cost.
 
-### 2. Handling shifting table structures and blurry, low-quality scans
-* **The Challenge:** Over 90% of PDFs contained digitally generated text tables, but the row positions and table headers changed frequently. The remaining files were scanned copies, and many were rotated and blurry, making them difficult to read even with human eyes.
+### 2. Handling changing table layouts and blurry scanned PDFs
+* **The Challenge:** Over 90% of PDFs contained digitally generated text tables, but the row positions and table headers changed frequently. The remaining files were scanned copies that were often rotated or blurry, making them difficult to read even with human eyes.
 
-* **The Realization:** I tested several vision models in Amazon Bedrock, including Nova Lite 2, Claude Haiku, Sonnet, and Opus. Even the more expensive models struggled with blurry scans and often confused characters like 0 and O or 8 and B. That's when I realized LLMs are much better at understanding context than reading unclear text.
+* **The Realization:** I tested several vision models in Amazon Bedrock, including Nova Lite 2, Claude Haiku, Claude Sonnet, and Claude Opus. Even the more expensive models struggled with blurry scans and often confused characters like 0 and O or 8 and B. That was when I realized LLMs are much better at understanding context than reading unclear text.
 
-* **The Solution:** Built a two tier strategy. For the 90%+ digital text tables, I used `PDFPlumber` with custom Python parsing logic and the built-in `csv` module to handle changing table header formats with 100% accuracy at ~zero cost. For the small percentage of scanned files, I pre-fetched valid purchase order numbers and approvers from platform APIs and injected them into the Bedrock prompt. Instead of forcing the model to guess blurry characters, the LLM used reasoning to match extracted text against known valid values.
+* **The Solution:** Built a two tier strategy. For the 90%+ digital text tables, I used `PDFPlumber` with custom Python parsing logic and the built-in `csv` module to handle changing table header formats with 100% accuracy at almost no cost. For the remaining scanned files, I fetched valid purchase order numbers and approvers from platform APIs and included them in the Amazon Bedrock prompt. Instead of guessing unclear characters, the model matched the extracted text against known valid values using context.
 
-### 3. Replacing 9 fragile Make scenarios with native AWS orchestration
-* **The Challenge:** The old pipeline relied on nine separate [Make](https://www.make.com) scenarios that passed data between AWS and external webhooks. There was no error handling or alerting, so files could fail without anyone noticing. When a client asked about a missing invoice, we had to manually check multiple Make scenarios and API logs to figure out what happened. The workflow was difficult to maintain, and even small changes could easily cause new problems.
+### 3. Replacing 9 fragile Make scenarios with AWS Step Functions
+* **The Challenge:** The old pipeline relied on nine separate [Make](https://www.make.com) scenarios that passed data between AWS and external webhooks. There was no error handling or alerting, so files could fail without anyone noticing. When a client asked about a missing invoice, we had to trace the workflow across multiple Make scenarios and API logs to find where it failed. The workflow was difficult to maintain, and even small changes could easily cause new problems.
 
-* **The Solution:** Systematically audited and tested every Make scenario to map out all hidden business logic, then rebuilt the entire workflow natively in AWS Step Functions using SAM and Docker. Added EventBridge rules and SNS email alerts so any failure triggers an instant notification detailing the exact failed Lambda. Now, when an issue occurs, a developer can open the Step Functions visual console, view the failed state and CloudWatch logs, and debug or re-test the function directly in minutes.
+* **The Solution:** I audited and tested every Make scenario to understand the existing business logic, then rebuilt the entire workflow in AWS Step Functions using AWS SAM and Docker. I also added EventBridge rules and SNS email alerts so every pipeline failure sends an automatic notification with the failed Lambda. Now, developers can open the Step Functions visual console, view the failed state and CloudWatch logs, and debug the issue in a few minutes.
