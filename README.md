@@ -42,7 +42,7 @@ To fix these issues, I redesigned the document processing system entirely in AWS
 ### Key Results
 * **97% Cost Reduction:** Reduced monthly AWS costs from over $500 to between $3 and $5 by eliminating Textract charges.
 
-* **Processing Time Reduced from 5 Minutes to 3 Seconds:** Reduced the processing time for each invoice from over 5 minutes to about 3 seconds by replacing cross platform Make webhooks with an AWS Step Functions workflow.
+* **Processing Time Reduced from 5 Minutes to 10 Seconds:** Reduced the processing time for each invoice from over 5 minutes to about 10 seconds by replacing cross platform Make webhooks with an AWS Step Functions workflow.
 
 * **Instant Alerts & Effortless Debugging:** Added EventBridge and SNS monitoring to send email alerts whenever a pipeline fails. Developers can open the Step Functions execution, see exactly where the failure occurred, review the CloudWatch logs, and identify the issue within minutes.
 
@@ -52,6 +52,7 @@ To fix these issues, I redesigned the document processing system entirely in AWS
 
 *Finished AWS State machine (Step Functions)*
 <img width="1602" height="677" alt="AESstepfunctions_graph" src="https://github.com/user-attachments/assets/7b1aaef5-5b3a-46f1-a376-5e270a3013c7" />
+<img width="1303" height="765" alt="AES State machine executions" src="https://github.com/user-attachments/assets/65fa34b9-02f0-4e17-8a96-7cb43c5c57fa" />
 
 ---
 
