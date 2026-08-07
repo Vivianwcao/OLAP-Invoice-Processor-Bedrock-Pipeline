@@ -51,8 +51,13 @@ To fix these issues, I redesigned the document processing system entirely in AWS
 * **Fully Reproducible Infrastructure:** Defined the entire AWS infrastructure in AWS SAM templates built with Docker, making deployments consistent and repeatable.
 
 *Finished AWS State machine (Step Functions)*
-<img width="1602" height="677" alt="AESstepfunctions_graph" src="https://github.com/user-attachments/assets/7b1aaef5-5b3a-46f1-a376-5e270a3013c7" />
-<img width="1303" height="765" alt="AES State machine executions" src="https://github.com/user-attachments/assets/65fa34b9-02f0-4e17-8a96-7cb43c5c57fa" />
+
+*Route 1 AES*
+<img width="1303" height="758" alt="AESstepfunctions_graph" src="https://github.com/user-attachments/assets/910a94ad-7126-4198-9394-3967d31a9f59" />
+
+*Route 2 CES*
+<img width="1302" height="762" alt="CESstepfunctions_graph" src="https://github.com/user-attachments/assets/41bcf48f-c9db-4128-9c93-18af5bd5e23b" />
+<img width="1302" height="761" alt="AES State machine executions" src="https://github.com/user-attachments/assets/1e77a69e-76a5-4b32-8b7c-1478000a4752" />
 
 ---
 
