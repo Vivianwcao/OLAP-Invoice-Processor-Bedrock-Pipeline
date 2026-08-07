@@ -52,10 +52,10 @@ To fix these issues, I redesigned the document processing system entirely in AWS
 
 *Finished AWS State machine (Step Functions)*
 
-*Route 1 AES*
+***Route 1** AES*
 <img width="1303" height="758" alt="AESstepfunctions_graph" src="https://github.com/user-attachments/assets/910a94ad-7126-4198-9394-3967d31a9f59" />
 
-*Route 2 CES*
+***Route 2** CES*
 <img width="1302" height="762" alt="CESstepfunctions_graph" src="https://github.com/user-attachments/assets/41bcf48f-c9db-4128-9c93-18af5bd5e23b" />
 <img width="1302" height="761" alt="AES State machine executions" src="https://github.com/user-attachments/assets/1e77a69e-76a5-4b32-8b7c-1478000a4752" />
 
